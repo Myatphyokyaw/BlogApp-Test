@@ -21,6 +21,7 @@
     "react": "17.0.2",
     "react-native": "0.66.1",
     "react-native-country-picker-modal": "^2.0.0",
+    "react-native-credit-card-form-ui": "^1.2.5",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-image-slider-box": "^1.1.9",
     "react-native-linear-gradient": "^2.5.6",
