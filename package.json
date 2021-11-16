@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@react-native-community/clipboard": "^1.5.1",
+    "@react-native-masked-view/masked-view": "^0.2.6",
+    "@react-navigation/bottom-tabs": "^6.0.9",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@twotalltotems/react-native-otp-input": "^1.3.11",
@@ -19,11 +21,22 @@
     "react": "17.0.2",
     "react-native": "0.66.1",
     "react-native-country-picker-modal": "^2.0.0",
+    "react-native-gesture-handler": "^1.10.3",
+    "react-native-image-slider-box": "^1.1.9",
+    "react-native-linear-gradient": "^2.5.6",
+    "react-native-material-buttons": "^0.6.0",
     "react-native-otp-verify": "^1.0.4",
     "react-native-phone-number-input": "^2.1.0",
+    "react-native-progress-steps": "^1.3.4",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.9.0",
-    "react-native-vector-icons": "^9.0.0"
+    "react-native-skeleton-placeholder": "^5.0.0",
+    "react-native-swipe-list": "^0.0.2",
+    "react-native-swipe-list-view": "^3.2.9",
+    "react-native-vector-icons": "^9.0.0",
+    "react-native-vertical-input-credit-card": "^1.0.3",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

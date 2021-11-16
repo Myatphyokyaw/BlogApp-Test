@@ -32,12 +32,11 @@ const OTPVerifyScreen = props => {
                     codeInputFieldStyle={styles.underlineStyleBase}
                 />
             </View>
-            <TouchableOpacity activeOpacity={.7} style={styles.submitBtn}>
+            <TouchableOpacity onPress={()=> props.navigation.navigate('HomeContainerScreen')} activeOpacity={.7} style={styles.submitBtn}>
                 <View>
                     <Text style={styles.submitTxt}>Submit</Text>
                 </View>
             </TouchableOpacity>
-
         </View>
     )
 

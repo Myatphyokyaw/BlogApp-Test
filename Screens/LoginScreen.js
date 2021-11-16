@@ -10,8 +10,6 @@ import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import PhoneInput from 'react-native-phone-number-input';
 import OrComponent from "../Components/StartScreenComponents/OrComponent";
 import images from "../Constants/images";
-import {Link} from "@react-navigation/native";
-import RNOtpVerify from 'react-native-otp-verify';
 
 const LoginScreen = props => {
     const [value, setValue] = useState("");
@@ -25,7 +23,6 @@ const LoginScreen = props => {
             "otpLength": 4,
             "otpValidityInSeconds": 120
         });
-
         var config = {
             method: 'post',
             url: 'https://otp.apistack.run/v1/sendOtp',
@@ -35,7 +32,6 @@ const LoginScreen = props => {
             },
             data : data
         };
-
         axios(config)
             .then(function (response) {
                  console.log(response.data);
