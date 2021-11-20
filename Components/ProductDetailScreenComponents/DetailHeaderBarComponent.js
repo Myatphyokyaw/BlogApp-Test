@@ -3,9 +3,33 @@ import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {COLORS, FONTS, SIZES} from "../../Constants/theme";
+import {useSelector, useDispatch} from "react-redux";
 
 const DetailHeaderBarComponent = props => {
+    const dispatch = useDispatch()
+    const data = props.data
     const [click, setClick] = useState(false)
+    const wishList = useSelector((state) => state.cartReducer)
+    const addWishList = (product) => {
+        if (wishList.findIndex(el => el.id === data.id) !== -1) {
+            alert("this product is already purchase")
+        } else {
+            dispatch({
+                type: "ADDTOPRODUCT",
+                payload: {
+                    id: data.id,
+                    title: data.title,
+                    category: data.category,
+                    productImage: data.image,
+                    price: data.price,
+                    qty: 1,
+                    wishList: true,
+                },
+            })
+
+        }
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.bar}>
@@ -15,6 +39,7 @@ const DetailHeaderBarComponent = props => {
                 <Text style={styles.headerText}>Product</Text>
                 <TouchableOpacity onPress={() => {
                     setClick(!click)
+                    addWishList()
                 }}>
                     <FontAwesome name={click ? "heart" : "heart-o"} color={click ? 'red' : COLORS.primary} size={23}/>
                 </TouchableOpacity>

@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View, StyleSheet} from "react-native";
 import {ProgressSteps, ProgressStep} from 'react-native-progress-steps';
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
+import {CreditCardInput, LiteCreditCardInput} from "@soevii/react-native-card-input";
 
 const CheckOutScreen = props => {
     return (
@@ -9,8 +10,12 @@ const CheckOutScreen = props => {
             <ProgressSteps>
                 <ProgressStep>
                     <View style={styles.paymentContainer}>
+                        <Text style={[FONTS.h3, {textAlign: "center", color: COLORS.black}]}>PAYMENT</Text>
                         <View style={styles.paymentFormContainer}>
-
+                            <LiteCreditCardInput
+                                placeholders={{ number: "Card Number", expiry: "MM/YY", cvc: "CVC" }}
+                                inputStyle={{backgroundColor: COLORS.lightGray2, borderRadius: SIZES.radius,padding:SIZES.padding}}
+                            />
                         </View>
                     </View>
                 </ProgressStep>
@@ -37,7 +42,10 @@ const styles = StyleSheet.create({
     paymentContainer: {
         flex: 1,
     },
-    paymentFormContainer: {}
+    paymentFormContainer: {
+        padding: SIZES.padding,
+        marginTop: SIZES.padding * 5
+    }
 })
 
 export default CheckOutScreen

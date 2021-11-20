@@ -1,5 +1,5 @@
 import React from "react";
-import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import {createMaterialBottomTabNavigator} from "@react-navigation/material-bottom-tabs";
 import Home from "./Home";
 import Cart from "./Cart";
 import Account from "./Account";
@@ -7,21 +7,26 @@ import {Text, View, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import {useSelector} from "react-redux";
+import WishList from "./WishListScreen";
 
-const Tab = createBottomTabNavigator()
+const Tab = createMaterialBottomTabNavigator()
 const HomeContainerScreen = props => {
     const count = useSelector((state) => state.cartReducer)
 
     return (
-        <Tab.Navigator screenOptions={{
+        <Tab.Navigator
+            barStyle={{backgroundColor:COLORS.white}}
+            labeled={false}
+            screenOptions={{
             tabBarShowLabel: false,
-            headerShown: false
+            headerShown: false,
+
         }}>
             <Tab.Screen options={{
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <Ionicons name={focused ? "ios-home" : "ios-home-outline"} size={25}
+                            <Ionicons name={focused ? "ios-home" : "ios-home-outline"} size={20}
                                       color={focused ? COLORS.primary : COLORS.black}/>
                             {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Home</Text>*/}
                         </View>
@@ -35,7 +40,7 @@ const HomeContainerScreen = props => {
                             <View style={[styles.badge, {display: count.length === 0 ? "none" : "flex"}]}>
                                 <Text style={{color: COLORS.white, fontSize: 10}}>{count.length}</Text>
                             </View>
-                            <Ionicons name={focused ? "ios-cart" : "ios-cart-outline"} size={30}
+                            <Ionicons name={focused ? "ios-cart" : "ios-cart-outline"} size={25}
                                       color={focused ? COLORS.primary : COLORS.black}/>
                         </View>
                     )
@@ -45,7 +50,18 @@ const HomeContainerScreen = props => {
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <Ionicons name={focused ? "ios-people-sharp" : "ios-people-outline"} size={25}
+                            <Ionicons name={focused ? "server-sharp" : "server-outline"} size={20}
+                                      color={focused ? COLORS.primary : COLORS.black}/>
+                            {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Account</Text>*/}
+                        </View>
+                    )
+                }
+            }} name="WishList" component={WishList}/>
+            <Tab.Screen options={{
+                tabBarIcon: ({focused}) => {
+                    return (
+                        <View style={styles.btnContainer}>
+                            <Ionicons name={focused ? "ios-people-sharp" : "ios-people-outline"} size={20}
                                       color={focused ? COLORS.primary : COLORS.black}/>
                             {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Account</Text>*/}
                         </View>

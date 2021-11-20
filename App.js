@@ -12,11 +12,13 @@ import {combineReducers, createStore} from "redux";
 import {CartReducer} from "./store/Reducers/CartReducer";
 import {ItemCountReducer} from "./store/Reducers/ItemCountReducer";
 import CheckOutScreen from "./Screens/CheckOutScreen";
+import {AddWishReducer} from "./store/Reducers/AddWishReducer";
 
 const Stack = createNativeStackNavigator()
 const RootReducer = combineReducers({
     cartReducer: CartReducer,
-    itemCountReducer: ItemCountReducer
+    itemCountReducer: ItemCountReducer,
+    addWishReducer : AddWishReducer
 });
 const store = createStore(RootReducer);
 

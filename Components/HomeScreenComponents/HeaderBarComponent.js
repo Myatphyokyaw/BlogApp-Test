@@ -5,7 +5,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {useSelector} from "react-redux";
 
 const HeaderBarComponent = props => {
-    // const value = useSelector((state) => state.counter)
     return (
         <View style={styles.container}>
             <View style={styles.bar}>
@@ -26,7 +25,6 @@ const HeaderBarComponent = props => {
 }
 const styles = StyleSheet.create({
     container: {
-        // flex: 1
     },
     bar: {
         height: 60,

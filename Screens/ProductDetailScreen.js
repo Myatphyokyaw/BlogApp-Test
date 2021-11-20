@@ -1,21 +1,44 @@
-import React from "react";
+import React, {useState} from "react";
 import {View, StyleSheet, Text, Image, ScrollView, TouchableNativeFeedback} from "react-native";
 import DetailHeaderBarComponent from "../Components/ProductDetailScreenComponents/DetailHeaderBarComponent";
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 // import {addition} from "../store/actionType";
-
+import Dispatch from "redux";
 const ProductDetailScreen = props => {
+    const dispatch = useDispatch()
     const data = props.route.params.data
-    // const dispatch = useDispatch()
-    // const run = () => {
-    //     props.navigation.navigate('Cart');
-    //     dispatch(addition())
-    // }
+    const cartProduct = useSelector((state) => state.cartReducer)
+    const [condition,setCondition] = useState(false)
+    const addToCart = (product) => {
+        if (cartProduct.findIndex(el => el.id === product.id) !== -1) {
+            alert("ထိုပစ္စည်းသည်သင်ဝယ်ယူထားပီးဖြစ်သည်။")
+            setCondition(true)
+        } else {
+            dispatch({
+                type: "ADDTOPRODUCT",
+                payload: {
+                    id: product.id,
+                    title: product.title,
+                    category: product.category,
+                    productImage: product.image,
+                    price: product.price,
+                    qty: 1,
+                    wishList:false,
+                },
+                id: product.id
+            })
+            dispatch({
+                type: "ADDTOCART"
+            })
+        }
+
+    }
+
     return (
         <View style={styles.container}>
-            <DetailHeaderBarComponent navigation={props.navigation}/>
+            <DetailHeaderBarComponent navigation={props.navigation} data={data}/>
             <View style={styles.imgContainer}>
                 <Image style={styles.productImg} source={{uri: data.image}}/>
             </View>
@@ -41,7 +64,7 @@ const ProductDetailScreen = props => {
                     <ScrollView>
                         <Text style={styles.aboutText}>{data.description}</Text>
                     </ScrollView>
-                    <TouchableNativeFeedback onPress={() => run()}>
+                    <TouchableNativeFeedback onPress={() => addToCart(data)}>
                         <View style={styles.addBtn}>
                             <Text style={[FONTS.h3, {color: COLORS.white}]}>Add to cart</Text>
                         </View>

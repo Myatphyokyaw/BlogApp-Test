@@ -10,17 +10,18 @@ const Home = props => {
     return (
         <View style={styles.container}>
             <HeaderBarComponent/>
-            <ScrollView>
-                <ImageSlideComponent/>
-                <ProductCard navigation={props.navigation}/>
-            </ScrollView>
+
+                <ScrollView style={{flex: 1,overflow:'scroll'}}>
+                    <ProductCard navigation={props.navigation}/>
+                </ScrollView>
+
         </View>
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
     }
 })
 export default Home

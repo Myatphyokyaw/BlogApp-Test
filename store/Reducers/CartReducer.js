@@ -32,6 +32,16 @@ export const CartReducer = (state = initialState, action) => {
         }
 
             return deleteItem()
+        case "ADDWISHLIST":
+
+        function wishList() {
+
+            state[action.payload.id - 1].wishList = true
+
+        }
+            wishList()
+            return [...state]
+
 
         default:
             return state

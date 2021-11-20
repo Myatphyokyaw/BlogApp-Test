@@ -13,6 +13,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import LottieView from "lottie-react-native";
 import lottie from "../Constants/lottie";
 import {SwipeListView} from 'react-native-swipe-list-view';
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Cart = props => {
     const cartProduct = useSelector((state) => state.cartReducer)
@@ -61,7 +62,8 @@ const Cart = props => {
                 <View style={styles.container}>
                     <View style={{flex: 1}}>
                         <View style={styles.headerContainer}>
-                            <Text style={styles.headerText}>Shopping Cart</Text>
+                            <Text style={styles.headerText}><Ionicons name="ios-cart-outline"
+                                                                      size={20}/> {cartProduct.length} Items in Cart</Text>
                         </View>
                         <View style={styles.itemContainer}>
                             <SwipeListView
@@ -78,13 +80,13 @@ const Cart = props => {
                                                 justifyContent: "space-between",
                                                 alignItems: "center"
                                             }}>
-                                                <Text style={[FONTS.body5, {
+                                                <Text style={[FONTS.body4, {
                                                     color: COLORS.black, fontWeight: "bold", width: '100%'
                                                 }]}>{item.category}</Text>
                                                 <TouchableNativeFeedback onPress={() => deleteItem(item.id)}>
                                                     <View style={styles.smallDelBtn}>
-                                                        <MaterialCommunityIcons size={15} color={COLORS.white}
-                                                                                name="delete"/>
+                                                        <MaterialCommunityIcons size={15} color='red'
+                                                                                name="delete-outline"/>
                                                     </View>
                                                 </TouchableNativeFeedback>
 
@@ -118,7 +120,10 @@ const Cart = props => {
                                                         </View>
                                                     </TouchableNativeFeedback>
                                                 </View>
-                                                <Text>${item.price}</Text>
+                                                <Text style={{
+                                                    color: COLORS.primary,
+                                                    fontWeight: "bold"
+                                                }}>${item.price * item.qty}</Text>
                                             </View>
                                         </View>
                                     </View>
@@ -142,52 +147,49 @@ const Cart = props => {
                     </View>
                     <View style={styles.checkOutBox}>
                         <View style={styles.subTotalContainer}>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>Sub Total</Text>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>$ {totalSumPrice}</Text>
+                            <Text style={[FONTS.body3, {color: COLORS.darkgray}]}>Sub Total</Text>
+                            <Text style={[FONTS.body2, {color: COLORS.black}]}>$ {totalSumPrice}</Text>
                         </View>
-                        <View style={styles.subTotalContainer}>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>Shipping</Text>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>$ 10.00</Text>
-                        </View>
-                        <View style={styles.subTotalContainer}>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>Total</Text>
-                            <Text style={[FONTS.body3, {color: COLORS.black}]}>$ {(totalSumPrice + 10.00)}</Text>
-                        </View>
-                        <TouchableOpacity onPress={()=>props.navigation.navigate('CheckOutScreen')} activeOpacity={.7} style={styles.checkOutButton}>
-                            <View>
-                                <Text style={[FONTS.h4, {color: COLORS.white}]}>Checkout</Text>
+                        <TouchableOpacity onPress={() => props.navigation.navigate('CheckOutScreen')} activeOpacity={.7}
+                                          style={styles.checkOutButton}>
+                            <View style={{flexDirection: "row"}}>
+                                <Text style={[FONTS.h4, {color: COLORS.white, marginRight: 5}]}>Checkout</Text>
+                                <Ionicons
+                                    name="ios-checkmark-done-circle-outline" color={COLORS.white} size={20}/>
                             </View>
                         </TouchableOpacity>
                     </View>
                 </View>
-
             ) :
             (<View style={{flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: COLORS.white}}>
-                <LottieView style={{height: '60%', justifyContent: 'center', alignItems: 'center'}}
+                <LottieView style={{height: '50%', justifyContent: 'center', alignItems: 'center'}}
                             source={lottie.emptyCart} autoPlay loop/>
+                <Text style={[FONTS.h3, {color: COLORS.black}]}>Empty Cart</Text>
             </View>)
-
     )
 }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        paddingHorizontal: SIZES.padding - 3,
+
     },
     headerContainer: {
-        height: '9%',
+        height: '10%',
         width: '100%',
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: COLORS.white
+        backgroundColor: COLORS.white,
+        borderBottomColor: COLORS.darkgray,
+        borderBottomWidth: 0.2
     },
     headerText: {
-        ...FONTS.h2,
+        ...FONTS.h3,
         color: COLORS.primary
     },
     itemContainer: {
-        paddingHorizontal: SIZES.padding * 1.5,
         paddingTop: SIZES.padding * 1.5,
         paddingBottom: SIZES.padding * 1.5,
         flex: 1,
@@ -200,13 +202,13 @@ const styles = StyleSheet.create({
         alignItems: "center",
         backgroundColor: COLORS.white,
         paddingHorizontal: SIZES.padding,
-        borderWidth: 0.2,
-        borderColor: COLORS.primary
+        borderBottomWidth: 0.2,
+        borderBottomColor: COLORS.primary
 
     },
     productImg: {
         width: 60,
-        height: 60,
+        height: 70,
         resizeMode: "contain",
     },
     subContainer: {
@@ -219,12 +221,13 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderRadius: SIZES.radius,
-        borderColor: COLORS.lightGray2,
-        borderWidth: 1
+        borderColor: COLORS.primary,
+        borderWidth: 0.5,
     },
     qtyBtnText: {
-        color: COLORS.black,
-        ...FONTS.h2,
+        color: COLORS.primary,
+        ...FONTS.h3,
+
     },
     deleteBtn: {
         flexDirection: "row",
@@ -237,13 +240,16 @@ const styles = StyleSheet.create({
         height: 84
     },
     checkOutBox: {
-        height: '27%',
+        height: '10%',
         width: '100%',
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
         backgroundColor: COLORS.white,
-        borderTopRightRadius: SIZES.roundRadius * 1.2,
-        borderTopLeftRadius: SIZES.roundRadius * 1.2,
-        paddingHorizontal: SIZES.padding * 3,
+        paddingHorizontal: SIZES.padding * 2,
         paddingVertical: SIZES.padding * 2,
+        borderTopWidth: 1,
+        borderTopColor: COLORS.lightGray,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -255,7 +261,6 @@ const styles = StyleSheet.create({
         elevation: 30,
     },
     subTotalContainer: {
-        flexDirection: "row",
         justifyContent: "space-between",
         marginTop: SIZES.padding
     },
@@ -263,21 +268,25 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.primary,
         justifyContent: "center",
         alignItems: "center",
-        height: '25%',
+        height: '100%',
         borderRadius: SIZES.roundRadius,
-        marginTop: SIZES.padding * 1.2
+        marginTop: SIZES.padding * 1.2,
+        paddingHorizontal: SIZES.padding,
+
     },
     rowBack: {
         flexDirection: "row",
         justifyContent: "flex-end"
     },
     smallDelBtn: {
-        backgroundColor: 'red',
-        width: 25,
-        height: 25,
+        width: 30,
+        height: 30,
         justifyContent: "center",
         alignItems: "center",
-        borderRadius: SIZES.radius
+        borderRadius: SIZES.radius,
+        borderWidth: 0.5,
+        borderColor: 'red',
+        color: COLORS.black
     },
     smallDelBtnText: {
         color: COLORS.white

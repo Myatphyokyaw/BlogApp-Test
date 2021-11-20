@@ -1,17 +1,21 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
 import {
     View,
     StyleSheet,
     Image,
     Text,
     TouchableNativeFeedback,
-    SafeAreaView
+    SafeAreaView,
+    TouchableOpacity, ScrollView
 } from "react-native";
 import axios from "axios";
 import {COLORS, FONTS, SIZES} from "../../Constants/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useDispatch, useSelector} from "react-redux";
+import {FlatList} from "react-native-gesture-handler";
+import LottieView from "lottie-react-native";
+import lottie from "../../Constants/lottie";
 
 const ProductCard = props => {
     const [data, setData] = useState([]);
@@ -20,7 +24,7 @@ const ProductCard = props => {
     const dispatch = useDispatch()
     const run = (product) => {
         if (cartProduct.findIndex(el => el.id === product.id) !== -1) {
-            alert("ထိုပစ္စည်းသည်သင့်ဝယ်ယူထားပီးဖြစ်သည်။")
+            alert("ထိုပစ္စည်းသည်သင်ဝယ်ယူထားပီးဖြစ်သည်။")
         } else {
             dispatch({
                 type: "ADDTOPRODUCT",
@@ -31,6 +35,7 @@ const ProductCard = props => {
                     productImage: product.image,
                     price: product.price,
                     qty: 1,
+                    wishList:false,
                 },
                 id: product.id
             })
@@ -50,130 +55,17 @@ const ProductCard = props => {
                 console.log(error);
             })
     })
+
     return (
-        <SafeAreaView>
+        <View style={styles.container}>
             {loading ? (
-                <View style={styles.container}>
+                <View>
                     <Text style={styles.headerText}>You May Like</Text>
-                    <View style={styles.skeContainer}>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
-                        <SkeletonPlaceholder>
-                            <SkeletonPlaceholder.Item style={styles.skeCard}>
-                                <SkeletonPlaceholder.Item marginTop={10} marginLeft={10} borderTopLeftRadius={10}
-                                                          borderTopRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item marginTop={0} marginLeft={10} borderBottomLeftRadius={10}
-                                                          borderBottomRightRadius={10} width={170}
-                                                          height={90}/>
-                                <SkeletonPlaceholder.Item width={120} marginLeft={10} height={20} marginTop={5}
-                                                          borderRadius={10}/>
-                                <SkeletonPlaceholder.Item
-                                    marginTop={6}
-                                    width={80}
-                                    height={20}
-                                    borderRadius={10}
-                                    marginLeft={10}
-                                />
-                            </SkeletonPlaceholder.Item>
-                        </SkeletonPlaceholder>
+                    <View style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}>
+                            <LottieView style={{width: 150, height: 150}} autoPlay={true} loop source={lottie.loading}/>
                     </View>
                 </View>
-
-            ) : (<View style={styles.container}>
+            ) : (<View>
                 <Text style={styles.headerText}>You May Like</Text>
                 <View style={styles.productCardContainer}>
                     {data.map((item, index) => {
@@ -184,21 +76,27 @@ const ProductCard = props => {
                                 <View style={styles.productCard}>
                                     <Image style={styles.productImage}
                                            source={{uri: item.image}}/>
-                                    <Text style={styles.desText}>Mens Casual Premium Slim Fit T-Shirts</Text>
+                                    <View style={{
+                                        alignItems: "flex-start",
+                                        justifyContent: "center",
+                                        paddingHorizontal: SIZES.padding,
+                                        width: '100%'
+                                    }}>
+                                        <Text style={styles.desText}>{item.category}</Text>
+                                    </View>
                                     <View style={{
                                         flexDirection: "row",
                                         width: '100%',
                                         alignItems: "center",
                                         justifyContent: "space-between",
-                                        marginTop: 10,
-                                        paddingStart: SIZES.padding
+                                        marginVertical: 10,
+                                        paddingHorizontal: SIZES.padding
                                     }}>
                                         <Text style={styles.priceText}>${item.price}</Text>
-                                        <TouchableNativeFeedback onPress={() => run(item)}>
-                                            <View style={styles.shopButton}>
-                                                <Ionicons size={20} color={COLORS.white} name="ios-cart"/>
-                                            </View>
-                                        </TouchableNativeFeedback>
+                                        <TouchableOpacity style={styles.shopButton} onPress={() => run(item)}>
+                                            <Ionicons size={20} color={COLORS.primary} name="cart-outline"/>
+                                            <Text style={[FONTS.body5, {color: COLORS.primary}]}>Shop Now</Text>
+                                        </TouchableOpacity>
                                     </View>
 
                                 </View>
@@ -207,15 +105,15 @@ const ProductCard = props => {
                     })}
                 </View>
             </View>)}
-
-        </SafeAreaView>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: SIZES.padding
+        padding: SIZES.padding,
+        backgroundColor: COLORS.white,
     },
     productCardContainer: {
         marginTop: SIZES.padding * 2,
@@ -232,38 +130,45 @@ const styles = StyleSheet.create({
         marginHorizontal: SIZES.padding - 6,
         marginBottom: SIZES.padding,
         paddingBottom: 0,
-        borderWidth: 0.5,
-        borderColor: COLORS.primary
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     },
     productImage: {
         width: '80%',
-        height: 120,
+        height: 200,
         resizeMode: "contain",
-        zIndex: -1
     },
     headerText: {
         ...FONTS.h4,
         fontWeight: "bold",
         color: COLORS.black,
+        marginLeft: '2%'
     },
     desText: {
-        marginTop: SIZES.padding,
-        paddingHorizontal: SIZES.padding
+        marginVertical: SIZES.padding,
     },
     priceText: {
-        ...FONTS.body3,
+        ...FONTS.body4,
         fontWeight: "bold",
         color: COLORS.black,
     },
     shopButton: {
-        backgroundColor: COLORS.primary,
         justifyContent: "center",
         alignItems: "center",
-        width: 45,
-        height: 45,
-        borderTopLeftRadius: SIZES.radius,
-        borderBottomRightRadius: SIZES.radius,
-
+        borderWidth: 1,
+        paddingHorizontal: SIZES.padding - 2,
+        borderColor: COLORS.primary,
+        flexDirection: "row",
+        marginStart: SIZES.padding,
+        borderRadius: SIZES.roundRadius,
+        paddingVertical: SIZES.padding - 5
     },
     skeContainer: {
         flexDirection: "row",
