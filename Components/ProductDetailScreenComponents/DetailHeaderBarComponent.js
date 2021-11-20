@@ -26,8 +26,10 @@ const DetailHeaderBarComponent = props => {
                     wishList: true,
                 },
             })
-
         }
+    }
+    if (wishList.length !== 0 && wishList.findIndex(el => el.id === data.id) !== -1) {
+        var condition = wishList[wishList.findIndex(el => el.id === data.id)].wishList
     }
 
     return (
@@ -38,10 +40,10 @@ const DetailHeaderBarComponent = props => {
                 </TouchableOpacity>
                 <Text style={styles.headerText}>Product</Text>
                 <TouchableOpacity onPress={() => {
-                    setClick(!click)
                     addWishList()
                 }}>
-                    <FontAwesome name={click ? "heart" : "heart-o"} color={click ? 'red' : COLORS.primary} size={23}/>
+                    <FontAwesome name={condition ? "heart" : "heart-o"} color={condition ? 'red' : COLORS.primary}
+                                 size={23}/>
                 </TouchableOpacity>
             </View>
         </View>

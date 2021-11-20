@@ -36,7 +36,9 @@ const Cart = props => {
         }
 
     })
-
+    let x = cartProduct.filter((el) => {
+        return el.wishList === false
+    })
 
     const decrease = (id) => {
         if (cartProduct[cartProduct.findIndex((el) => el.id === id)].qty > 1) {
@@ -48,27 +50,30 @@ const Cart = props => {
 
     }
     const totalPrice = (id) => {
-        cartProduct.map((el) => {
+        x.map((el) => {
             var cost = el.price * el.qty
             total.push(cost)
         })
-        let price = total.reduce((x, y) => {
-            return x + y
-        }).toFixed(2)
+        if (x.length !== 0){
+            var price = total.reduce((x, y) => {
+                return x + y
+            }).toFixed(2)
+        }
+
         setTotalSumPrice(price)
     }
     return (
-        cartProduct.length !== 0 ? (
+        x.length !== 0 ? (
                 <View style={styles.container}>
                     <View style={{flex: 1}}>
                         <View style={styles.headerContainer}>
                             <Text style={styles.headerText}><Ionicons name="ios-cart-outline"
-                                                                      size={20}/> {cartProduct.length} Items in Cart</Text>
+                                                                      size={20}/> {x.length} Items in Cart</Text>
                         </View>
                         <View style={styles.itemContainer}>
                             <SwipeListView
                                 stopLeftSwipe={10.2}
-                                data={cartProduct}
+                                data={x}
                                 renderItem={({item, index}) =>
                                     <View style={styles.detailCardContainer}>
                                         <Image style={styles.productImg}
@@ -174,10 +179,9 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.white,
         justifyContent: "space-between",
         paddingHorizontal: SIZES.padding - 3,
-
     },
     headerContainer: {
-        height: '10%',
+        height: '7%',
         width: '100%',
         justifyContent: "center",
         alignItems: "center",

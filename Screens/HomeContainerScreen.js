@@ -8,27 +8,34 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import {useSelector} from "react-redux";
 import WishList from "./WishListScreen";
+import MaterialCommunityIcon from "react-native-paper/src/components/MaterialCommunityIcon";
 
 const Tab = createMaterialBottomTabNavigator()
 const HomeContainerScreen = props => {
     const count = useSelector((state) => state.cartReducer)
-
+    let cart = count.filter((el) => {
+        return el.wishList === false
+    })
+    let wish = count.filter((el) => {
+        return el.wishList === true
+    })
     return (
         <Tab.Navigator
-            barStyle={{backgroundColor:COLORS.white}}
+            barStyle={{backgroundColor: COLORS.white,height:60}}
             labeled={false}
             screenOptions={{
-            tabBarShowLabel: false,
-            headerShown: false,
+                tabBarShowLabel: false,
+                headerShown: false,
 
-        }}>
+            }}>
             <Tab.Screen options={{
+
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <Ionicons name={focused ? "ios-home" : "ios-home-outline"} size={20}
+                            <Ionicons name={focused ? "ios-home" : "ios-home-outline"} size={22}
                                       color={focused ? COLORS.primary : COLORS.black}/>
-                            {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Home</Text>*/}
+                            <Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Home</Text>
                         </View>
                     )
                 }
@@ -37,11 +44,15 @@ const HomeContainerScreen = props => {
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <View style={[styles.badge, {display: count.length === 0 ? "none" : "flex"}]}>
-                                <Text style={{color: COLORS.white, fontSize: 10}}>{count.length}</Text>
+                            <View style={[styles.cartBadgeContainer, {display: cart.length === 0 ? "none" : "flex"}]}>
+                                <View style={styles.cartBadge}>
+                                    <Text style={{color: COLORS.white, fontSize: 10}}>{cart.length}</Text>
+                                </View>
                             </View>
-                            <Ionicons name={focused ? "ios-cart" : "ios-cart-outline"} size={25}
+
+                            <Ionicons name={focused ? "ios-cart" : "ios-cart-outline"} size={22}
                                       color={focused ? COLORS.primary : COLORS.black}/>
+                            <Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Cart</Text>
                         </View>
                     )
                 }
@@ -50,9 +61,15 @@ const HomeContainerScreen = props => {
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <Ionicons name={focused ? "server-sharp" : "server-outline"} size={20}
+                            <View style={[styles.wishBadgeContainer,{display: wish.length === 0 ? "none" : "flex"}]}>
+                                <View style={styles.wishBadge}>
+                                    <Text style={{color: COLORS.white, fontSize: 10}}>{wish.length}</Text>
+                                </View>
+                            </View>
+                            <Ionicons name={focused ? "heart" : "heart-outline"} size={22}
                                       color={focused ? COLORS.primary : COLORS.black}/>
-                            {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Account</Text>*/}
+                            <Text
+                                style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>WishList</Text>
                         </View>
                     )
                 }
@@ -61,9 +78,10 @@ const HomeContainerScreen = props => {
                 tabBarIcon: ({focused}) => {
                     return (
                         <View style={styles.btnContainer}>
-                            <Ionicons name={focused ? "ios-people-sharp" : "ios-people-outline"} size={20}
+                            <Ionicons name={focused ? "person" : "person-outline"} size={22}
                                       color={focused ? COLORS.primary : COLORS.black}/>
-                            {/*<Text style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Account</Text>*/}
+                            <Text
+                                style={[styles.btnText, {color: focused ? COLORS.primary : COLORS.black}]}>Account</Text>
                         </View>
                     )
                 }
@@ -75,22 +93,51 @@ const HomeContainerScreen = props => {
 const styles = StyleSheet.create({
     btnContainer: {
         alignItems: "center",
-        marginTop: '10%'
+        justifyContent: "center",
     },
     btnText: {
-        fontSize: 10
+        fontSize: 10,
+        width: '100%'
     },
-    badge: {
-        width: 17,
-        height: 17,
+    cartBadge: {
+        width: 16,
+        height: 16,
         backgroundColor: 'red',
         borderRadius: SIZES.roundRadius,
-        position: 'absolute',
-        top: -5,
-        right: -5,
         justifyContent: 'center',
         alignItems: 'center',
-        zIndex: 10
+    },
+    cartBadgeContainer: {
+        zIndex: 12,
+        width: 20,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: SIZES.roundRadius,
+        position: 'absolute',
+        top: -15,
+        right: '-35%',
+        backgroundColor: COLORS.white
+    },
+    wishBadge: {
+        width: 16,
+        height: 16,
+        backgroundColor: 'red',
+        borderRadius: SIZES.roundRadius,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    wishBadgeContainer: {
+        zIndex: 12,
+        width: 20,
+        height: 20,
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: SIZES.roundRadius,
+        position: 'absolute',
+        top: -15,
+        right: '-10%',
+        backgroundColor: COLORS.white
     }
 
 })
