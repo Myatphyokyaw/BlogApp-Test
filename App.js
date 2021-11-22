@@ -13,12 +13,13 @@ import {CartReducer} from "./store/Reducers/CartReducer";
 import {ItemCountReducer} from "./store/Reducers/ItemCountReducer";
 import CheckOutScreen from "./Screens/CheckOutScreen";
 import {AddWishReducer} from "./store/Reducers/AddWishReducer";
+import SearchScreen from "./Screens/SearchScreen";
 
 const Stack = createNativeStackNavigator()
 const RootReducer = combineReducers({
     cartReducer: CartReducer,
     itemCountReducer: ItemCountReducer,
-    addWishReducer : AddWishReducer
+    addWishReducer: AddWishReducer
 });
 const store = createStore(RootReducer);
 
@@ -36,6 +37,7 @@ const App = props => {
                     <Stack.Screen name="HomeContainerScreen" component={HomeContainerScreen}/>
                     <Stack.Screen name="ProductDetailScreen" component={ProductDetailScreen}/>
                     <Stack.Screen name="CheckOutScreen" component={CheckOutScreen}/>
+                    <Stack.Screen name="SearchScreen" component={SearchScreen}/>
                 </Stack.Navigator>
             </Provider>
         </NavigationContainer>

@@ -8,7 +8,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import {useSelector} from "react-redux";
 import WishList from "./WishListScreen";
-import MaterialCommunityIcon from "react-native-paper/src/components/MaterialCommunityIcon";
 
 const Tab = createMaterialBottomTabNavigator()
 const HomeContainerScreen = props => {

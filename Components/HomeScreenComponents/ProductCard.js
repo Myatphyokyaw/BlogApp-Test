@@ -11,9 +11,7 @@ import {
 import axios from "axios";
 import {COLORS, FONTS, SIZES} from "../../Constants/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import SkeletonPlaceholder from "react-native-skeleton-placeholder";
 import {useDispatch, useSelector} from "react-redux";
-import {FlatList} from "react-native-gesture-handler";
 import LottieView from "lottie-react-native";
 import lottie from "../../Constants/lottie";
 

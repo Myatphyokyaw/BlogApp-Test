@@ -32,17 +32,23 @@ export const CartReducer = (state = initialState, action) => {
         }
 
             return deleteItem()
-        case "ADDWISHLIST":
+        case "CONVERTCART":
 
         function wishList() {
-
-            state[action.payload.id - 1].wishList = true
-
+            state[state.findIndex((el) => el.id === action.id)].wishList = false
         }
             wishList()
             return [...state]
+        function deleteWishList() {
+            let data = state.filter(el => {
+                return el.id !== action.id
+            })
+            return data
+        }
 
-
+            return test
+        case "ALLDELETEITEM":
+            return initialState
         default:
             return state
     }

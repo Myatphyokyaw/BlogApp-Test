@@ -3,16 +3,28 @@ import {FlatList, Image, StyleSheet, Text, TouchableNativeFeedback, TouchableOpa
 import LottieView from "lottie-react-native";
 import lottie from "../Constants/lottie";
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
-import {useSelector} from "react-redux";
+import {useSelector, useDispatch} from "react-redux";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const WishList = props => {
     const cartProduct = useSelector((state) => state.cartReducer)
-
+    const dispatch = useDispatch()
+    const deleteItem = (id) => {
+        dispatch({type: "DELETEITEM", id: id})
+    }
     let x = cartProduct.filter((el) => {
         return el.wishList === true
     })
+
+    function convertToCart(id) {
+        dispatch({
+            type: "CONVERTCART",
+            id: id
+        })
+    }
+
+
 
     console.log(x.image)
     return (
@@ -39,11 +51,12 @@ const WishList = props => {
                                         <Text style={styles.category}>{item.category}</Text>
                                         <Text style={styles.title}>{item.title}</Text>
                                     </View>
-                                    <View style={{justifyContent:"space-between"}}>
-                                        <TouchableOpacity style={styles.deleteButton}>
+                                    <View style={{justifyContent: "space-between"}}>
+                                        <TouchableOpacity style={styles.deleteButton} onPress={() => deleteItem(item.id)}>
                                             <MaterialCommunityIcons size={20} color="red" name="delete-outline"/>
                                         </TouchableOpacity>
-                                        <TouchableOpacity style={styles.shopButton}>
+                                        <TouchableOpacity style={styles.shopButton}
+                                                          onPress={() => convertToCart(item.id)}>
                                             <Ionicons size={20} color={COLORS.primary} name="cart-outline"/>
                                         </TouchableOpacity>
                                     </View>
@@ -94,15 +107,15 @@ const styles = StyleSheet.create({
     },
     category: {
         ...FONTS.h4,
-        color:COLORS.black
+        color: COLORS.black
 
     },
-    desContainer:{
-        marginLeft:SIZES.padding - 5,
-        width:'65%',
+    desContainer: {
+        marginLeft: SIZES.padding - 5,
+        width: '65%',
     },
-    title:{
-        width:'100%',
+    title: {
+        width: '100%',
         ...FONTS.body5
     },
     shopButton: {
@@ -115,9 +128,9 @@ const styles = StyleSheet.create({
         marginEnd: SIZES.padding,
         borderRadius: SIZES.roundRadius,
         paddingVertical: SIZES.padding - 5,
-        marginBottom:SIZES.padding,
+        marginBottom: SIZES.padding,
     },
-    deleteButton:{
+    deleteButton: {
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
@@ -127,7 +140,7 @@ const styles = StyleSheet.create({
         marginEnd: SIZES.padding,
         borderRadius: SIZES.roundRadius,
         paddingVertical: SIZES.padding - 5,
-        marginBottom:SIZES.padding
+        marginBottom: SIZES.padding
     }
 })
 

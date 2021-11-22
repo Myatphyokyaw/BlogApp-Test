@@ -9,7 +9,7 @@ const HeaderBarComponent = props => {
         <View style={styles.container}>
             <View style={styles.bar}>
                 <Ionicons size={20} name="ios-scan-sharp" color={COLORS.black}/>
-                <TouchableOpacity style={styles.searchBar} activeOpacity={.5}>
+                <TouchableOpacity style={styles.searchBar} onPress={()=>props.navigation.navigate('SearchScreen')} activeOpacity={.5}>
                     <Ionicons size={20} name="ios-search-outline"/>
                     <Text style={{marginLeft: 5}}>Search Product</Text>
                 </TouchableOpacity>

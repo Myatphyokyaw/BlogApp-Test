@@ -9,12 +9,11 @@ const Home = props => {
 
     return (
         <View style={styles.container}>
-            <HeaderBarComponent/>
-
-                <ScrollView style={{flex: 1,overflow:'scroll'}}>
-                    <ProductCard navigation={props.navigation}/>
-                </ScrollView>
-
+            <HeaderBarComponent navigation={props.navigation}/>
+            {/*<ImageSlideComponent/>*/}
+            <ScrollView style={{flex: 1, overflow: 'scroll'}}>
+                <ProductCard navigation={props.navigation}/>
+            </ScrollView>
         </View>
     )
 }
