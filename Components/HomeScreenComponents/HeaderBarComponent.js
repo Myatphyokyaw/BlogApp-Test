@@ -1,23 +1,34 @@
 import React from "react";
-import {View, StyleSheet, TextInput, TouchableNativeFeedback, Text, TouchableOpacity} from "react-native";
+import {View, StyleSheet, Text, TouchableOpacity} from "react-native";
 import {COLORS, SIZES} from "../../Constants/theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {useSelector} from "react-redux";
+import {IconButton} from "react-native-paper";
 
 const HeaderBarComponent = props => {
     return (
         <View style={styles.container}>
             <View style={styles.bar}>
-                <Ionicons size={20} name="ios-scan-sharp" color={COLORS.black}/>
+                <IconButton
+                    icon="magnify-scan"
+                    size={20}
+                    style={{margin:0}}
+                    onPress={() => console.log('Pressed')}
+                />
                 <TouchableOpacity style={styles.searchBar} onPress={()=>props.navigation.navigate('SearchScreen')} activeOpacity={.5}>
                     <Ionicons size={20} name="ios-search-outline"/>
                     <Text style={{marginLeft: 5}}>Search Product</Text>
                 </TouchableOpacity>
+
                 <TouchableOpacity activeOpacity={.7}>
                     <View style={styles.badge}>
                         <Text style={{color: COLORS.white, fontSize: 10}}>5</Text>
                     </View>
-                    <Ionicons size={20} name="notifications-outline" color={COLORS.black}/>
+                    <IconButton
+                        icon="bell-outline"
+                        size={20}
+                        style={{margin:0}}
+                        onPress={() => console.log('Pressed')}
+                    />
                 </TouchableOpacity>
             </View>
         </View>
@@ -29,9 +40,9 @@ const styles = StyleSheet.create({
     bar: {
         height: 60,
         backgroundColor: COLORS.white,
-        paddingHorizontal: SIZES.padding * 2,
+        paddingHorizontal: SIZES.padding,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-evenly',
         flexDirection: 'row'
     },
     searchBar: {
@@ -40,7 +51,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 30,
         borderRadius: SIZES.roundRadius,
-        marginHorizontal: SIZES.padding,
         borderWidth: 0.5,
         borderColor: COLORS.primary,
         paddingHorizontal: SIZES.padding
@@ -51,8 +61,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         borderRadius: SIZES.roundRadius,
         position: 'absolute',
-        top: -7,
-        right: -5,
+        top: '-5%',
+        right: '5%',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 10

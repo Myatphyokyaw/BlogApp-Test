@@ -4,6 +4,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import {COLORS, FONTS, SIZES} from "../../Constants/theme";
 import {useSelector, useDispatch} from "react-redux";
+import {IconButton} from "react-native-paper";
 
 const DetailHeaderBarComponent = props => {
     const dispatch = useDispatch()
@@ -35,9 +36,13 @@ const DetailHeaderBarComponent = props => {
     return (
         <View style={styles.container}>
             <View style={styles.bar}>
-                <TouchableOpacity onPress={() => props.navigation.goBack()}>
-                    <Ionicons name="arrow-back-outline" size={30} color={COLORS.primary}/>
-                </TouchableOpacity>
+                <IconButton
+                    icon="arrow-left"
+                    size={30}
+                    color={COLORS.primary}
+                    style={{margin:0}}
+                    onPress={() => props.navigation.goBack()}
+                />
                 <Text style={styles.headerText}>Product</Text>
                 <TouchableOpacity onPress={() => {
                     addWishList()

@@ -6,6 +6,7 @@ const otpVerify = require('../Assests/Lotties/OtpVerify.json')
 const addToCart = require('../Assests/Lotties/AddtoCart.json')
 const emptyCart = require('../Assests/Lotties/EmptyCart.json')
 const loading = require('../Assests/Lotties/Loading.json')
+const success = require('../Assests/Lotties/Success.json')
+const confirm = require('../Assests/Lotties/Confirm.json')
 
-
-export default {startOne, startTwo, startThree, startFour, otpVerify, addToCart, emptyCart, loading}
+export default {startOne, startTwo, startThree, startFour, otpVerify, addToCart, emptyCart, loading, success, confirm}

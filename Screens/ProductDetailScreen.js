@@ -4,8 +4,7 @@ import DetailHeaderBarComponent from "../Components/ProductDetailScreenComponent
 import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import {useDispatch, useSelector} from "react-redux";
-// import {addition} from "../store/actionType";
-import Dispatch from "redux";
+
 const ProductDetailScreen = props => {
     const dispatch = useDispatch()
     const data = props.route.params.data

@@ -26,6 +26,7 @@ const OTPVerifyScreen = props => {
             <Text style={styles.text3}>+959798173552</Text>
             <View style={{justifyContent: "center", alignItems: "center", marginVertical: SIZES.padding * 9}}>
                 <OTPInputView
+                    autoFocusOnLoad={false}
                     pinCount={4}
                     code={props.route.params.code}
                     style={{width: '80%', height: 40}}

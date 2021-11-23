@@ -5,6 +5,8 @@ import {COLORS, FONTS, SIZES} from "../Constants/theme";
 import {CreditCardInput, LiteCreditCardInput} from "@soevii/react-native-card-input";
 import {useDispatch} from "react-redux";
 import {Button, TextInput} from "react-native-paper";
+import LottieView from "lottie-react-native";
+import lottie from "../Constants/lottie";
 
 const CheckOutScreen = props => {
     const dispatch = useDispatch();
@@ -17,9 +19,10 @@ const CheckOutScreen = props => {
 
     return (
         <View style={styles.container}>
-            <ProgressSteps>
-                <ProgressStep>
-                    <View style={styles.container}>
+            <ProgressSteps marginBottom={20}>
+                <ProgressStep isComplete={false} nextBtnStyle={styles.nextBtn} nextBtnText="CheckOut"
+                              nextBtnTextStyle={{color: COLORS.white}}>
+                    <View st            yle={styles.container}>
                         <Text style={styles.headerText}>Payment Details</Text>
                         <TextInput outlineColor={COLORS.primary} activeOutlineColor={COLORS.primary}
                                    style={styles.textInput} label="Card HolderName" mode='outlined'/>
@@ -35,26 +38,20 @@ const CheckOutScreen = props => {
                             <TextInput style={[styles.textInput, {width: '40%'}]} outlineColor={COLORS.primary}
                                        activeOutlineColor={COLORS.primary} label="CVC" mode='outlined'/>
                         </View>
-                        <Button contentStyle={{
-                            backgroundColor: COLORS.primary,
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            height: 80
-                        }} mode="contained" onPress={() => {
-                            console.log("Pressed")
-                        }}>
-                            CheckOut
-                        </Button>
                     </View>
                 </ProgressStep>
-                <ProgressStep>
-                    <View style={{alignItems: 'center'}}>
-                        <Text>This is the content within step 2!</Text>
+                <ProgressStep nextBtnStyle={styles.nextBtn} nextBtnText="Confirm" previousBtnStyle={styles.previousBtn}
+                              nextBtnTextStyle={{color: COLORS.white}}>
+                    <View style={{alignItems: 'center',flex:1}}>
+                        <LottieView style={styles.confirmImg} source={lottie.confirm} autoPlay loop/>
+                        <Text style={styles.confirmText}>Confirm your payment</Text>
                     </View>
                 </ProgressStep>
-                <ProgressStep onSubmit={() => success()}>
+                <ProgressStep previousBtnStyle={{display: 'none'}} nextBtnStyle={styles.nextBtn}
+                              nextBtnTextStyle={{color: COLORS.white}} onSubmit={() => success()}>
                     <View style={{alignItems: 'center'}}>
-                        <Text>This is the content within step 3!</Text>
+                        <LottieView style={{width: '100%', height: 500}} source={lottie.success} autoPlay loop/>
+                        <Text style={FONTS.h3}>Thank For Buying</Text>
                     </View>
                 </ProgressStep>
             </ProgressSteps>
@@ -66,7 +63,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLORS.white,
-        padding: SIZES.padding
+        padding: SIZES.padding,
     },
     headerText: {
         ...FONTS.h2
@@ -74,6 +71,28 @@ const styles = StyleSheet.create({
     textInput: {
         marginTop: SIZES.padding * 3,
         backgroundColor: COLORS.white
+    },
+    nextBtn: {
+        backgroundColor: COLORS.primary,
+        paddingHorizontal: SIZES.padding * 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: SIZES.radius,
+    },
+    previousBtn: {
+        borderWidth: 0.2,
+        borderColor: COLORS.primary,
+        borderRadius: SIZES.radius
+    },
+    confirmImg:{
+        width:'100%',
+        height:'80%',
+        justifyContent:"center",
+        alignItems:"center"
+    },
+    confirmText:{
+        ...FONTS.h2,
+        marginTop:SIZES.padding * 4
     }
 })
 

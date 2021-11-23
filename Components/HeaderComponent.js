@@ -10,6 +10,7 @@ const HeaderComponent = props => {
                 <Ionicons color={COLORS.black} name="arrow-back-outline" size={30}/>
             </TouchableOpacity>
             <Text style={styles.headerText}>OTP</Text>
+            <Text></Text>
         </View>
     )
 }

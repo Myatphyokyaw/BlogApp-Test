@@ -1,16 +1,14 @@
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     View,
     StyleSheet,
     Image,
     Text,
     TouchableNativeFeedback,
-    SafeAreaView,
-    TouchableOpacity, ScrollView
+    TouchableOpacity,
 } from "react-native";
 import axios from "axios";
 import {COLORS, FONTS, SIZES} from "../../Constants/theme";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import {useDispatch, useSelector} from "react-redux";
 import LottieView from "lottie-react-native";
 import lottie from "../../Constants/lottie";
@@ -18,11 +16,12 @@ import lottie from "../../Constants/lottie";
 const ProductCard = props => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true)
+    const [show, setShow] = useState(false)
     const cartProduct = useSelector((state) => state.cartReducer)
     const dispatch = useDispatch()
     const run = (product) => {
         if (cartProduct.findIndex(el => el.id === product.id) !== -1) {
-            alert("ထိုပစ္စည်းသည်သင်ဝယ်ယူထားပီးဖြစ်သည်။")
+            alert("This product is already purchase")
         } else {
             dispatch({
                 type: "ADDTOPRODUCT",
@@ -33,7 +32,7 @@ const ProductCard = props => {
                     productImage: product.image,
                     price: product.price,
                     qty: 1,
-                    wishList:false,
+                    wishList: false,
                 },
                 id: product.id
             })
@@ -41,6 +40,7 @@ const ProductCard = props => {
                 type: "ADDTOCART"
             })
         }
+
 
     }
     useEffect(() => {
@@ -60,7 +60,7 @@ const ProductCard = props => {
                 <View>
                     <Text style={styles.headerText}>You May Like</Text>
                     <View style={{justifyContent: 'center', alignItems: 'center', height: '100%'}}>
-                            <LottieView style={{width: 150, height: 150}} autoPlay={true} loop source={lottie.loading}/>
+                        <LottieView style={{width: 150, height: 150}} autoPlay={true} loop source={lottie.loading}/>
                     </View>
                 </View>
             ) : (<View>
@@ -91,9 +91,12 @@ const ProductCard = props => {
                                         paddingHorizontal: SIZES.padding
                                     }}>
                                         <Text style={styles.priceText}>${item.price}</Text>
-                                        <TouchableOpacity style={styles.shopButton} onPress={() => run(item)}>
-                                            <Ionicons size={20} color={COLORS.primary} name="cart-outline"/>
-                                            <Text style={[FONTS.body5, {color: COLORS.primary}]}>Shop Now</Text>
+                                        <TouchableOpacity
+                                            style={[styles.shopButton]}
+                                            onPress={() => {
+                                                run(item);
+                                            }}>
+                                            <Text style={[FONTS.body5, {color: COLORS.primary}]}>Add Cart</Text>
                                         </TouchableOpacity>
                                     </View>
 
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         borderWidth: 1,
-        paddingHorizontal: SIZES.padding - 2,
+        paddingHorizontal: '8%',
         borderColor: COLORS.primary,
         flexDirection: "row",
         marginStart: SIZES.padding,
@@ -171,7 +174,6 @@ const styles = StyleSheet.create({
     skeContainer: {
         flexDirection: "row",
         flexWrap: "wrap",
-        // justifyContent: "center"
     },
     skeCard: {
         width: '47%',

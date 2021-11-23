@@ -9,7 +9,6 @@ import SquareComponent from "../Components/StartScreenComponents/SquareComponent
 
 const StartScreen = props => {
     const scrollX = useRef(new Animated.Value(0)).current
-
     return (
         <View style={styles.container}>
             <Backdrop scrollX={scrollX}/>
